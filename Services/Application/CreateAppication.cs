@@ -21,14 +21,14 @@ namespace RailAPI.Services.Application
 
         // Create application
         public async Task<ApplicationResponse> CreateApplicationAsync(string accessToken)
-        { 
+        {
 
-            // Prepare the request body object
-            var requestBody = Payload.PrepareRequestPayload();
-             
-            var content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+            // Prepare the payload
+            var payload = Payload.PrepareRequestPayload();
 
-            // Build the HttpRequestMessage explicitly
+            // prepare the request
+            var content = new StringContent(payload, Encoding.UTF8, "application/json");
+
             var request = new HttpRequestMessage(HttpMethod.Post, "https://sandbox.layer2financial.com/api/v1/applications")
             {
                 Content = content
@@ -42,7 +42,7 @@ namespace RailAPI.Services.Application
             // Send the request
             var response = await _apiRequestAsync.SendPostRequestAsync<ApplicationResponse>(request);
 
-
+            // return the response
             return response!;
         }
 
