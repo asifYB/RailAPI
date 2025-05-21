@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 using RailAPI.Core;
 using RailAPI.Models.Auth;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace RailAPI.Auth
 {
@@ -18,11 +12,9 @@ namespace RailAPI.Auth
         string authEndpoint = "https://auth.layer2financial.com/oauth2/ausbdqlx69rH6OjWd696/v1/token";  
         string scopes = "customers:read accounts:read"; // we can add more scopes if needed separated by comma
 
+         
 
-        private ApiRequestAsync _apiRequestAsync;
-
-        public OAuth2Client() {
-            _apiRequestAsync = new ApiRequestAsync();
+        public OAuth2Client() { 
         }
 
         public async Task<string> GetAccessTokenAsync()
@@ -43,7 +35,7 @@ namespace RailAPI.Auth
             request.Content = new StringContent("", Encoding.UTF8, "application/json");
 
             // Send request
-            var response = await _apiRequestAsync.SendPostRequestAsync<TokenResponse>(request);
+            var response = await ApiRequest.SendPostRequestAsync<TokenResponse>(request);
 
             return response!.AccessToken;
         }

@@ -1,23 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
 
 namespace RailAPI.Core
 {
-    public class ApiRequestAsync
+    public class ApiRequest
     {
-        private HttpClient _httpClient;
+        private static readonly HttpClient _httpClient = new();
 
-        public ApiRequestAsync( )
-        {
-            _httpClient = new HttpClient();
-        }
-
-        public async Task<T?> SendPostRequestAsync<T>(HttpRequestMessage request)
+        public static async Task<T?> SendPostRequestAsync<T>(HttpRequestMessage request)
         { 
             var response = await _httpClient.SendAsync(request);
             var responsString = await response.Content.ReadAsStringAsync();
