@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using System.Web;
 using RailAPI.Models.Application;
 
 namespace RailAPI.Services.Application
@@ -85,6 +86,25 @@ namespace RailAPI.Services.Application
             });
 
             return json;
+        }
+
+        public static string BuildGetApplicationsQueryString(GetApplicationsQuery queryParams)
+        {
+            var query = HttpUtility.ParseQueryString(string.Empty);
+
+            query["page"] = queryParams.Page.ToString();
+            query["page_size"] = queryParams.PageSize.ToString();
+
+            if (!string.IsNullOrEmpty(queryParams.OrderBy)) query["order_by"] = queryParams.OrderBy;
+            if (!string.IsNullOrEmpty(queryParams.Order)) query["order"] = queryParams.Order;
+            if (!string.IsNullOrEmpty(queryParams.Status)) query["status"] = queryParams.Status;
+            if (!string.IsNullOrEmpty(queryParams.ApplicationType)) query["application_type"] = queryParams.ApplicationType;
+            if (queryParams.TermsAccepted.HasValue) query["terms_and_conditions_accepted"] = queryParams.TermsAccepted.Value.ToString().ToLower();
+            if (!string.IsNullOrEmpty(queryParams.CustomerId)) query["customer_id"] = queryParams.CustomerId;
+            if (!string.IsNullOrEmpty(queryParams.CustomerName)) query["customer_name"] = queryParams.CustomerName;
+            if (!string.IsNullOrEmpty(queryParams.EmailAddress)) query["email_address"] = queryParams.EmailAddress;
+
+            return query.ToString() ?? string.Empty; // Ensure a non-null string is returned
         }
     }
 }
