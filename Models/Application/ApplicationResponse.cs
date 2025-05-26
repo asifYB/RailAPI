@@ -9,6 +9,6 @@ namespace RailAPI.Models.Application
         public required string ApplicationId { get; set; }
 
         [JsonPropertyName("errors")]
-        public required List<ApiError>  Errors { get; set; }
+        public List<ApiError>?  Errors { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using RailAPI.Core;
 using RailAPI.Models.Application;
+using RailAPI.Utils;
 
 namespace RailAPI.Services.Application
 {
@@ -21,7 +22,7 @@ namespace RailAPI.Services.Application
                                                 };
 
             // prepare the request
-            var request = DefaultHttpRequestBuilder.BuildPostRequest(url: "", payload: payload, 
+            var request = DefaultHttpRequestBuilder.BuildPostRequest(url: URLConstants.CreateApplicationEndpoint, payload: payload, 
                                                 accessToken: accessToken, headers: headers);
 
             // Send the request

@@ -13,68 +13,21 @@ namespace RailAPI.Services.Application
             {
                 ApplicationType = "INDIVIDUAL",
                 TermsAndConditionsAccepted = true,
-                CustomerId = "CUST-123456",
+                CustomerId = "CUST123421",
+                InformationAttested = true,
 
                 AccountToOpen = new AccountToOpen
                 {
-                    AccountId = "ACC-789",
-                    ProductId = "PROD-456",
-                    AssetTypeId = "ASSET-001"
+                    AccountId = "ACC-721",
+                    ProductId = "DEPOSIT_BASIC",
+                    AssetTypeId = "FIAT_TESTNET_USD"
                 },
 
                 CustomerDetails = new CustomerDetails
                 {
-                    FirstName = "Alice",
-                    MiddleName = "B",
-                    LastName = "Smith",
-                    EmailAddress = "alice.smith@example.com",
-                    TelephoneNumber = "123-456-7890",
-                    TaxReferenceNumber = "TX123456",
-                    PassportNumber = "P1234567",
-                    Nationality = "US",
-                    Citizenship = "US",
-                    DateOfBirth = "1990-05-10",
-                    UsResidencyStatus = "US_CITIZEN",
-                    EmploymentStatus = "EMPLOYEE",
-                    EmploymentDescription = "Software Engineer",
-                    EmployerName = "Tech Solutions Inc",
-                    Occupation = "Engineer",
-
-                    MailingAddress = new MailingAddress
-                    {
-                        UnitNumber = "10A",
-                        AddressLine1 = "123 Main St",
-                        AddressLine2 = "Suite 400",
-                        AddressLine3 = "",
-                        City = "New York",
-                        State = "NY",
-                        PostalCode = "10001",
-                        CountryCode = "US"
-                    },
-
-                    InvestmentProfile = new InvestmentProfile
-                    {
-                        PrimarySourceOfFunds = "EMPLOYMENT",
-                        PrimarySourceOfFundsDescription = "Full-time employment salary",
-                        TotalAssets = "UPTO_100K",
-                        UsdValueOfFiat = "UPTO_50K",
-                        MonthlyDeposits = "UPTO_10",
-                        MonthlyWithdrawals = "UPTO_5",
-                        MonthlyInvestmentDeposit = "UPTO_5K",
-                        MonthlyInvestmentWithdrawal = "UPTO_2K",
-                        UsdValueOfCrypto = "UPTO_10K",
-                        MonthlyCryptoDeposits = "UPTO_3",
-                        MonthlyCryptoWithdrawals = "UPTO_2",
-                        MonthlyCryptoInvestmentDeposit = "UPTO_1K",
-                        MonthlyCryptoInvestmentWithdrawal = "UPTO_500"
-                    },
-
-                    KycProfile = new KycProfile
-                    {
-                        FundsSendReceiveJurisdictions = new List<string> { "US", "SG" },
-                        EngageInActivities = new List<string> { "TRADING", "SAVINGS" },
-                        VendorsAndCounterparties = new List<string> { "BINANCE", "COINBASE" }
-                    }
+                    FirstName = "Asif",
+                    MiddleName = " ",
+                    LastName = "Test"
                 }
             };
 

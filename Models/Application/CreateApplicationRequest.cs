@@ -13,10 +13,13 @@ namespace RailAPI.Models.Application
         [JsonPropertyName("terms_and_conditions_accepted")]
         public bool TermsAndConditionsAccepted { get; set; }
 
+        [JsonPropertyName("information_attested")]
+        public bool InformationAttested { get; set; } = true;
+
         [JsonPropertyName("customer_id")]
         public required string CustomerId { get; set; }
 
         [JsonPropertyName("customer_details")]
-        public CustomerDetails CustomerDetails { get; set; }
+        public CustomerDetails? CustomerDetails { get; set; }
     }
 }

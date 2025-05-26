@@ -14,13 +14,13 @@ namespace RailAPI.Models.Application
         public required string LastName { get; set; }
 
         [JsonPropertyName("email_address")]
-        public required string EmailAddress { get; set; }
+        public string? EmailAddress { get; set; }
 
         [JsonPropertyName("mailing_address")]
         public MailingAddress? MailingAddress { get; set; }
 
         [JsonPropertyName("telephone_number")]
-        public required string TelephoneNumber { get; set; }
+        public string? TelephoneNumber { get; set; }
 
         [JsonPropertyName("tax_reference_number")]
         public string? TaxReferenceNumber { get; set; }
