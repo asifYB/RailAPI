@@ -12,5 +12,8 @@ namespace RailAPI.Models.Auth
 
         [JsonPropertyName("expires_in")]
         public int ExpiresIn { get; set; }
+
+        [JsonPropertyName("scope")]
+        public string Scope { get; set; } = string.Empty;
     }
 }
