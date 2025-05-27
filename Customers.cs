@@ -81,5 +81,38 @@ namespace RailAPI
             Console.WriteLine(responseBody);
         }
 
+
+        public static async Task CreatePayorAsync(string customerId, string accessToken, string requestId, string idempotencyId)
+        {
+            var json = @"
+            {
+                ""id"": ""payor_001"",
+                ""first_name"": ""John"",
+                ""middle_name"": ""T."",
+                ""last_name"": ""Doe"",
+                ""email_address"": ""john.doe@example.com"",
+                ""phone_number"": ""+11234567890"",
+                ""company_name"": ""Example Corp"",
+                ""state"": ""NY"",
+                ""country_code"": ""US""
+            }";
+
+            using var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            client.DefaultRequestHeaders.Add("x-l2f-request-id", requestId);
+            client.DefaultRequestHeaders.Add("x-l2f-idempotency-id", idempotencyId);
+
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var url = $"https://sandbox.layer2financial.com/api/v1/customers/{customerId}/payor";
+            var response = await client.PostAsync(url, content);
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            Console.WriteLine($"Status Code: {response.StatusCode}");
+            Console.WriteLine("Response Body:");
+            Console.WriteLine(responseBody);
+        }
+
+
     }
 }
