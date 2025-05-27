@@ -13,19 +13,19 @@ namespace RailAPI
 
 
 
-        public async Task CreateApplication(string accessToken, string requestId, string idempotencyId)
+        public static async Task CreateApplication(string accessToken, string requestId, string idempotencyId)
         {
             var json = @"
             {
                 ""application_type"": ""INDIVIDUAL"",
                 ""account_to_open"": {
-                    ""account_id"": ""acc321"",
-                    ""product_id"": ""DEPOSIT_BASIC"",
+                    ""account_id"": ""acc_456"",
+                    ""product_id"": ""PAYMENT_BASIC"",
                     ""asset_type_id"": ""FIAT_TESTNET_USD""
                 },
                 ""terms_and_conditions_accepted"": true,
                 ""information_attested"": true,
-                ""customer_id"": ""cust-002"",
+                ""customer_id"": ""cust_self"",
                 ""customer_details"": {
                     ""first_name"": ""Asif"",
                     ""middle_name"": ""A."",
@@ -87,18 +87,18 @@ namespace RailAPI
             var responseBody = await response.Content.ReadAsStringAsync();
             using var document = JsonDocument.Parse(responseBody);
             var id = document.RootElement.GetProperty("data").GetProperty("id").GetString();
-
+            //1e1b866f-f13f-4c28-9622-05792ebef00c
             Console.WriteLine($"Status Code: {response.StatusCode}");
             Console.WriteLine("Response:");
             Console.WriteLine(id);
 
         }
 
-        public async Task CheckApplicationStatus(string accessToken, string requestId, string idempotencyId)
+        public static async Task CheckApplicationStatus(string accessToken, string requestId, string idempotencyId)
         {
             ////check for application status 
             using var client = new HttpClient();
-            var applicationId = "a7ec66a1-25f9-49ae-9e24-62a08b53bef4"; // Replace with actual Application ID
+            var applicationId = "39c74493-bb01-4cda-aa23-4a6c06b9ad25"; // Replace with actual Application ID
             requestId = Guid.NewGuid().ToString();
             idempotencyId = Guid.NewGuid().ToString();
 
@@ -145,10 +145,10 @@ namespace RailAPI
         }
 
 
-        public async Task SubmitApplication(string accessToken, string requestId, string idempotencyId)
+        public static async Task SubmitApplication(string accessToken, string requestId, string idempotencyId)
         {
             using var client = new HttpClient();
-            var applicationId = "a7ec66a1-25f9-49ae-9e24-62a08b53bef4"; // Replace with actual Application ID
+            var applicationId = "39c74493-bb01-4cda-aa23-4a6c06b9ad25"; // Replace with actual Application ID
             requestId = Guid.NewGuid().ToString();
             idempotencyId = Guid.NewGuid().ToString();
 
@@ -165,5 +165,57 @@ namespace RailAPI
             Console.WriteLine("Response:");
             Console.WriteLine(responseBody);
         }
+
+        public static async Task RetrieveApplications(string accessToken, string requestId)
+        {
+            using var client = new HttpClient();
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            client.DefaultRequestHeaders.Add("x-l2f-request-id", requestId);
+
+            // Set query params — adjust values as needed
+            var queryParams = new List<string>
+            {
+                "page=0",
+                "page_size=20",
+                "order_by=customer_id",
+                "order=ASC"
+            };
+
+            var queryString = string.Join("&", queryParams);
+
+            var url = $"https://sandbox.layer2financial.com/api/v1/applications?{queryString}";
+
+            var response = await client.GetAsync(url);
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            Console.WriteLine($"Status Code: {response.StatusCode}");
+            Console.WriteLine("Response Body:");
+            Console.WriteLine(responseBody);
+        }
+
+        public static async Task UploadDocument(string accessToken, string requestId, string idempotencyId, string documentId = "098ca98a-c657-406f-8802-63ab46a908af", string filePath= @"C:\Users\Mohammad Asif\Downloads\Aadhar.pdf")
+        {
+            using var client = new HttpClient();
+
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            client.DefaultRequestHeaders.Add("x-l2f-request-id", requestId);
+            client.DefaultRequestHeaders.Add("x-l2f-idempotency-id", idempotencyId);
+
+            using var form = new MultipartFormDataContent();
+            var fileContent = new ByteArrayContent(await File.ReadAllBytesAsync(filePath));
+            fileContent.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+            form.Add(fileContent, "file", Path.GetFileName(filePath));
+
+            var url = $"https://sandbox.layer2financial.com/api/v1/documents/{documentId}";
+            var response = await client.PostAsync(url, form);
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            Console.WriteLine($"Status Code: {response.StatusCode}");
+            Console.WriteLine("Response Body:");
+            Console.WriteLine(responseBody);
+        }
+
+
     }
 }
