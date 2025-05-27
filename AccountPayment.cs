@@ -68,5 +68,30 @@ namespace RailAPI
             Console.WriteLine("Response Body:");
             Console.WriteLine(responseBody);
         }
+
+        public static async Task GetPaymentAccountAsync(string accountId, string accessToken, string requestId)
+        {
+            using var client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, $"https://sandbox.layer2financial.com/api/v1/accounts/payments/{accountId}");
+
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            if (!string.IsNullOrEmpty(requestId))
+                request.Headers.Add("x-l2f-request-id", requestId);
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseString = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(responseString);
+            }
+            else
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"Error: {error}");
+                throw new Exception($"Failed to retrieve payment account. Status: {response.StatusCode}, Error: {error}");
+            }
+        }
     }
 }

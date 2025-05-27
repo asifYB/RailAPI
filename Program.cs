@@ -21,7 +21,7 @@ namespace RailAPI
 
             //await Application.CreateApplication(accessToken, requestId, idempotencyId);
             //"{\"data\":{\"id\":\"39c74493-bb01-4cda-aa23-4a6c06b9ad25\"}}"
-            await Application.CheckApplicationStatus(accessToken, requestId, idempotencyId);
+            //await Application.CheckApplicationStatus(accessToken, requestId, idempotencyId);
 
 
             ////For Account Deposits
@@ -38,8 +38,8 @@ namespace RailAPI
             //await AccountPayment.RetreiveAccountPayment(accessToken, requestId, idempotencyId);
             //await AccountDeposit.RetrieveAccountDeposit(accessToken, requestId, idempotencyId);
 
-            //accessToken = await new OAuth2Client().GetAccessTokenAsync(scopes: "accounts:write");
-            //await AccountDeposit.RequestAddress(accessToken, requestId, idempotencyId, "acc_123");
+            accessToken = await new OAuth2Client().GetAccessTokenAsync(scopes: "accounts:write");
+            await AccountDeposit.RequestAddress(accessToken, requestId, idempotencyId, "acc_123");
 
 
 
