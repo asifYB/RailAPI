@@ -70,7 +70,7 @@ namespace RailAPI
             Console.WriteLine(responseBody);
         }
 
-        public static async Task UpdateAccountDepost(string accessToken, string requestId, string accountId)
+        public static async Task UpdateAccountDeposit(string accessToken, string requestId, string accountId)
         {
             var json = @"
             {

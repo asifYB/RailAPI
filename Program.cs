@@ -8,7 +8,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace RailAPI
 {
-    public class Program
+    public class Program 
     {
         static async Task Main(string[] args)
         {
@@ -30,12 +30,30 @@ namespace RailAPI
             //await AccountDeposit.OpenAccountDeposit(accessToken, requestId, idempotencyId);
 
 
+            ///for update accounts
+            //  accessToken = await new OAuth2Client().GetAccessTokenAsync(scopes: "accounts:write");
+            //await AccountDeposit.UpdateAccountDeposit(accessToken, requestId, "acc_123");
+
             //accessToken = await new OAuth2Client().GetAccessTokenAsync(scopes: "accounts:read");
             //await AccountPayment.RetreiveAccountPayment(accessToken, requestId, idempotencyId);
             //await AccountDeposit.RetrieveAccountDeposit(accessToken, requestId, idempotencyId);
 
             //accessToken = await new OAuth2Client().GetAccessTokenAsync(scopes: "accounts:write");
             //await AccountDeposit.RequestAddress(accessToken, requestId, idempotencyId, "acc_123");
+
+
+
+            ///Customers
+            //accessToken = await new OAuth2Client().GetAccessTokenAsync(scopes: "customers:read");
+            //await Customers.RetrieveCustomersAsync(accessToken, requestId);
+
+            //accessToken = await new OAuth2Client().GetAccessTokenAsync(scopes: "customers:write");
+            //await Customers.AddIndividualToCorporateCustomerAsync(
+            //    corporateCustomerId: "corp_123",
+            //    accessToken: accessToken,
+            //    requestId: requestId,
+            //    idempotencyId: idempotencyId
+            //);
 
         }
     }

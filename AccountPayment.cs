@@ -13,11 +13,11 @@ namespace RailAPI
         {
             var json = @"
             {
-                ""customer_id"": ""Self"",
+                ""customer_id"": ""cust-002"",
                 ""account_to_open"": {
-                    ""account_id"": ""act_123"",
+                    ""account_id"": ""acc_456"",
                     ""product_id"": ""PAYMENT_BASIC"",
-                    ""asset_type_id"": ""BITCOIN_TESTNET_BTC""
+                    ""asset_type_id"": ""FIAT_TESTNET_USD""
                 }
             }";
 
