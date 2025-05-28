@@ -121,7 +121,7 @@ namespace RailAPI
         }
 
 
-        public static async Task RetrieveTransactionsAsync(
+        public static async Task RetrieveTransactionsFromAccountAsync(
         string accessToken,
         string accountId,
         string requestId,
@@ -143,6 +143,30 @@ namespace RailAPI
             
 
             var url = $"accounts/deposits/{accountId}/transactions?{query}";
+
+            var response = await client.GetAsync(url);
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            Console.WriteLine($"Status Code: {response.StatusCode}");
+            Console.WriteLine("Response Body:");
+            Console.WriteLine(responseString);
+        }
+
+
+        public static async Task RetrieveTransactionAsync(
+        string accessToken,
+        string accountId,
+        string transactionId,
+        string requestId)
+        {
+            using var client = new HttpClient();
+            client.BaseAddress = new Uri("https://sandbox.layer2financial.com/api/v1/");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            if (!string.IsNullOrEmpty(requestId))
+                client.DefaultRequestHeaders.Add("x-l2f-request-id", requestId);
+
+            var url = $"accounts/deposits/{accountId}/transactions/{transactionId}";
 
             var response = await client.GetAsync(url);
             var responseString = await response.Content.ReadAsStringAsync();
