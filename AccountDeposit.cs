@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace RailAPI
 {
@@ -117,6 +118,38 @@ namespace RailAPI
             Console.WriteLine($"Status Code: {response.StatusCode}");
             Console.WriteLine("Response Body:");
             Console.WriteLine(responseBody);
+        }
+
+
+        public static async Task RetrieveTransactionsAsync(
+        string accessToken,
+        string accountId,
+        string requestId,
+        int page = 0,
+        int pageSize = 20,
+        string order = "DESC")
+        {
+            using var client = new HttpClient();
+            client.BaseAddress = new Uri("https://sandbox.layer2financial.com/api/v1/");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+            if (!string.IsNullOrEmpty(requestId))
+                client.DefaultRequestHeaders.Add("x-l2f-request-id", requestId);
+
+            var query = HttpUtility.ParseQueryString(string.Empty);
+            query["page"] = page.ToString();
+            query["page_size"] = pageSize.ToString();
+            query["order"] = order;
+            
+
+            var url = $"accounts/deposits/{accountId}/transactions?{query}";
+
+            var response = await client.GetAsync(url);
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            Console.WriteLine($"Status Code: {response.StatusCode}");
+            Console.WriteLine("Response Body:");
+            Console.WriteLine(responseString);
         }
     }
 }

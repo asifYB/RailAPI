@@ -34,12 +34,19 @@ namespace RailAPI
             //  accessToken = await new OAuth2Client().GetAccessTokenAsync(scopes: "accounts:write");
             //await AccountDeposit.UpdateAccountDeposit(accessToken, requestId, "acc_123");
 
+            /// for retrieving payments
             //accessToken = await new OAuth2Client().GetAccessTokenAsync(scopes: "accounts:read");
             //await AccountPayment.RetreiveAccountPayment(accessToken, requestId, idempotencyId);
             //await AccountDeposit.RetrieveAccountDeposit(accessToken, requestId, idempotencyId);
 
-            accessToken = await new OAuth2Client().GetAccessTokenAsync(scopes: "accounts:write");
-            await AccountDeposit.RequestAddress(accessToken, requestId, idempotencyId, "acc_123");
+            /// for wallet address
+            //accessToken = await new OAuth2Client().GetAccessTokenAsync(scopes: "accounts:write");
+            //await AccountDeposit.RequestAddress(accessToken, requestId, idempotencyId, "acc_123");
+
+
+            /// for getting the transactions from a specific account
+            //accessToken = await new OAuth2Client().GetAccessTokenAsync(scopes: "accounts:read");
+            //await AccountDeposit.RetrieveTransactionsAsync(accessToken, "acc_123", requestId);
 
 
 
